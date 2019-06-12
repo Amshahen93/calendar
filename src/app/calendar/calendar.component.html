@@ -1,0 +1,77 @@
+<div class="container-fluid" #container (window:resize) = 'resize(container.clientWidth)'>
+  <div class="row  calendarContent">
+    <div class="col-12 mountTurn">
+      <div class = 'dateToday'> 
+        <div class = 'previusButtonContent'>
+          <span *ngIf = 'previusButton' class = 'previusMounth' (click) = 'previusMounth()'> 
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill = '#13001ead'  x="0px" y="0px" width="24px"
+                height="21px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+            <g id="Bounding_Boxes">
+              <path opacity="0.87" fill="none" d="M0,0h24v24H0V0z"/>
+            </g>
+            <g id="Outline_1_">
+              <path d="M17.51,3.87L15.73,2.1L5.84,12l9.9,9.9l1.77-1.77L9.38,12L17.51,3.87z"/>
+            </g>
+            </svg>
+          </span> 
+        </div>
+        <div class = 'yearMountContent'>
+          {{ date | date:'MMM y' }} 
+        </div>
+        <span class = 'nextMounth' (click) = 'nextMounth()'> 
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill = '#13001ead' x="0px" y="0px" width="24px"
+                height="21px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+            <g id="Bounding_Boxes">
+              <path opacity="0.87" fill="none" d="M24,24H0L0,0l24,0V24z"/>
+            </g>
+            <g id="Outline_1_">
+              <path d="M6.49,20.13l1.77,1.77l9.9-9.9l-9.9-9.9L6.49,3.87L14.62,12L6.49,20.13z"/>
+            </g>
+            </svg>
+        </span> 
+      </div>
+    </div>
+    <div class="col-12 weekNamesContent">
+      <div *ngFor = 'let week of weeknames' class="weekName">
+        {{ week }}
+      </div>
+    </div>
+    <div class="col-12 daysContent">
+     <div class = 'borderBottom'>
+       <div *ngFor = 'let day of daysArray' [class] = "day? 'days': 'daysNull' " (click) = 'openEvents(day)'>
+        {{ day }}
+          <span *ngIf = 'eventsArray[day]' class = 'pudig'> </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id = 'close' *ngIf = 'popUp' class="popUp" (click) = 'closeEvents(this.id)'></div>
+<div [@popup] = 'popupAnimationState' *ngIf = 'popUp'  class = 'eventsList'  id = 'events'>
+  <div *ngIf = 'heidText'>
+    <div class = 'day'>
+     <div class = 'beegDay'> {{ day }} </div>
+      <div class = 'mountAndYear'>
+        <span>{{ week |  date: 'MMM' }} </span>
+       <span> {{ week | date: 'yyy' }}</span>
+      </div>
+      <div class = 'week'>
+        {{ week | date: 'EEEE' }} 
+      </div>
+    </div>
+    <div class = 'closeButton' (click) = 'closeEvents(this.id)'>
+        <i class="fa fa-close"></i>
+    </div>
+    <div class = 'scrolableEvents'>  
+      <div class = 'eventsInList'>
+        Event 1
+      </div>
+      <div class = 'eventsInList'> 
+        Event 2 
+      </div>
+      <div class = 'eventsInList'> 
+        Event 3 
+      </div>
+    </div>
+  </div>
+</div>
